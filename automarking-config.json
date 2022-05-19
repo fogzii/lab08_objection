@@ -1,0 +1,5 @@
+{
+    "coverage": true,
+    "lint": true,
+    "coverage_factor": 0.5
+}
