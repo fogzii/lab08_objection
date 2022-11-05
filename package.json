@@ -4,7 +4,10 @@
   "description": "[TOC]",
   "main": "src/objection.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --coverage",
+    "tsc": "tsc --noEmit",
+    "ts-node": "ts-node",
+    "lint": "eslint src/**.ts"
   },
   "keywords": [],
   "author": "",
