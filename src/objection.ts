@@ -37,7 +37,8 @@ export function getObjections(
   testimony: string,
   examinationType: ExaminationType
 ): Set<Objection> {
-  // TODO: error handling
+  if (question === '') throw new Error('question is an empty string');
+  if (testimony === '') throw new Error('question is an empty string');
 
   // Convert given question and testimony to lowercase
   question = question.toLowerCase();
@@ -50,14 +51,47 @@ export function getObjections(
       objections.add(Objection.ARGUMENTATIVE);
     }
 
-    // TODO
+    if (question.includes('think')) {
+      objections.add(Objection.SPECULATION);
+    }
   } else {
     // Type is ExaminationType.DIRECT
+    if (
+      question.startsWith('why did you') ||
+      question.startsWith('do you agree') ||
+      question.endsWith('right?') ||
+      question.endsWith('correct?')
+    ) {
+      objections.add(Objection.LEADING);
+    }
 
-    // TODO
+    if (testimony.includes('think')) {
+      objections.add(Objection.SPECULATION);
+    }
   }
 
-  // TODO
+  // cases that don't depend on ExaminationType
+  if ((question.match(/?/g) || []).length > 1) {
+    objections.add(Objection.COMPOUND);
+  }
+
+  if (testimony.includes('heard from') || testimony.includes('told me')) {
+    objections.add(Objection.HEARSAY);
+  }
+
+  const testimonyCpy = testimony.replace(/[^A-Za-z0-9 ]/g, '');
+  const questionCpy = question.replace(/[^A-Za-z0-9 ]/g, '');
+  const questionArr = questionCpy.split(" ");
+  for (const word of questionArr) {
+    if (new RegExp('\\b' + word + '\\b').test(testimonyCpy)) {
+      objections.add(Objection.NON_RESPONSIVE);
+      break;
+    }
+  }
+
+  if (testimony.length > 2 * question.length) {
+    objections.add(Objection.RELEVANCE);
+  }
 
   return objections;
 }
