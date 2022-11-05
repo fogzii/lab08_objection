@@ -30,7 +30,7 @@ describe('getObections()', () => {
         expect(getObjections(question, testimony, type)).toEqual(objections);
       });
     });
-    
+
     describe('compound cases', () => {
       test.each([
         {
@@ -141,8 +141,8 @@ describe('getObections()', () => {
     describe('speculation cases', () => {
       test.each([
         {
-          question: 'question with speculation?',
-          testimony: 'think yes.',
+          question: 'think question with speculation?',
+          testimony: 'yes question.',
           type: ExaminationType.CROSS,
           objections: new Set([Objection.SPECULATION]),
         },
