@@ -148,7 +148,7 @@ describe('getObections()', () => {
         },
         {
           question: 'question with speculation?',
-          testimony: 'yes think.',
+          testimony: 'yes think question.',
           type: ExaminationType.DIRECT,
           objections: new Set([Objection.SPECULATION]),
         },
