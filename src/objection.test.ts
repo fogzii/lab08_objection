@@ -1,24 +1,5 @@
 import { getObjections, Objection, ExaminationType } from './objection';
 
-describe('argumentative cases', () => {
-  test.each([
-    {
-      question: 'You are totally lying!',
-      testimony: 'No you!',
-      type: ExaminationType.CROSS,
-      objections: new Set([Objection.ARGUMENTATIVE]),
-    },
-    {
-      question: 'This is direct, yes!',
-      testimony: 'Yes, so not argumentative!',
-      type: ExaminationType.DIRECT,
-      objections: new Set([]),
-    },
-  ])('$objections', ({ question, testimony, type, objections }) => {
-    expect(getObjections(question, testimony, type)).toEqual(objections);
-  });
-});
-
 describe('getObections()', () => {
   describe('error', () => {
     test('question is an empty string', () => {
@@ -31,6 +12,25 @@ describe('getObections()', () => {
   });
 
   describe('success', () => {
+    describe('argumentative cases', () => {
+      test.each([
+        {
+          question: 'You are totally lying!',
+          testimony: 'No you!',
+          type: ExaminationType.CROSS,
+          objections: new Set([Objection.ARGUMENTATIVE]),
+        },
+        {
+          question: 'This is direct, yes!',
+          testimony: 'Yes, so not argumentative!',
+          type: ExaminationType.DIRECT,
+          objections: new Set([]),
+        },
+      ])('$objections', ({ question, testimony, type, objections }) => {
+        expect(getObjections(question, testimony, type)).toEqual(objections);
+      });
+    });
+    
     describe('compound cases', () => {
       test.each([
         {
