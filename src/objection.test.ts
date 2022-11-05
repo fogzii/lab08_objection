@@ -19,8 +19,8 @@ describe('argumentative cases', () => {
   });
 });
 
-describe ('getObections()', () => {
-  describe ('error', () => {
+describe('getObections()', () => {
+  describe('error', () => {
     test('question is an empty string', () => {
       expect(() => getObjections('', 'testimony!', ExaminationType.CROSS)).toThrow(Error);
     });
@@ -30,7 +30,7 @@ describe ('getObections()', () => {
     });
   });
 
-  describe ('success', () => {
+  describe('success', () => {
     describe('compound cases', () => {
       test.each([
         {
@@ -49,7 +49,7 @@ describe ('getObections()', () => {
         expect(getObjections(question, testimony, type)).toEqual(objections);
       });
     });
-    
+
     describe('hearsay cases', () => {
       test.each([
         {
@@ -68,7 +68,7 @@ describe ('getObections()', () => {
         expect(getObjections(question, testimony, type)).toEqual(objections);
       });
     });
-    
+
     describe('leading cases', () => {
       test.each([
         {
@@ -99,7 +99,7 @@ describe ('getObections()', () => {
         expect(getObjections(question, testimony, type)).toEqual(objections);
       });
     });
-    
+
     describe('non responsive cases', () => {
       test.each([
         {
@@ -118,7 +118,7 @@ describe ('getObections()', () => {
         expect(getObjections(question, testimony, type)).toEqual(objections);
       });
     });
-    
+
     describe('relevance cases', () => {
       test.each([
         {
@@ -137,7 +137,7 @@ describe ('getObections()', () => {
         expect(getObjections(question, testimony, type)).toEqual(objections);
       });
     });
-    
+
     describe('speculation cases', () => {
       test.each([
         {
@@ -155,6 +155,6 @@ describe ('getObections()', () => {
       ])('$objections', ({ question, testimony, type, objections }) => {
         expect(getObjections(question, testimony, type)).toEqual(objections);
       });
-    });    
+    });
   });
 });
