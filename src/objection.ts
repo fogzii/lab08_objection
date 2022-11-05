@@ -71,7 +71,7 @@ export function getObjections(
   }
 
   // cases that don't depend on ExaminationType
-  if ((question.match(/?/g) || []).length > 1) {
+  if ((question.match(/\?/g) || []).length > 1) {
     objections.add(Objection.COMPOUND);
   }
 
@@ -81,13 +81,15 @@ export function getObjections(
 
   const testimonyCpy = testimony.replace(/[^A-Za-z0-9 ]/g, '');
   const questionCpy = question.replace(/[^A-Za-z0-9 ]/g, '');
-  const questionArr = questionCpy.split(" ");
+  const questionArr = questionCpy.split(' ');
+  let wordFound = false;
   for (const word of questionArr) {
     if (new RegExp('\\b' + word + '\\b').test(testimonyCpy)) {
-      objections.add(Objection.NON_RESPONSIVE);
+      wordFound = true;
       break;
     }
   }
+  if (wordFound === false) objections.add(Objection.NON_RESPONSIVE);
 
   if (testimony.length > 2 * question.length) {
     objections.add(Objection.RELEVANCE);
